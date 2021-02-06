@@ -98,9 +98,23 @@ void matrix_scan_user(void) {
 }
 
 void keyboard_post_init_user(void) {
-  annepro2LedEnable();
+    annepro2LedEnable();
+    annepro2LedSetProfile(4);
 }
 
 layer_state_t layer_state_set_user(layer_state_t layer) {
     return layer;
+}
+
+// Turn keyboard red when caps lock is enabled
+bool led_update_user(led_t leds) {
+  if (leds.caps_lock) {
+    // Set the leds to red
+    annepro2LedSetForegroundColor(0xFF, 0x00, 0x00);
+  } else {
+    annepro2LedResetForegroundColor();
+    annepro2LedSetProfile(4);
+  }
+
+  return true;
 }
