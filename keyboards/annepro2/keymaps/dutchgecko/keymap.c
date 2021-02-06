@@ -97,6 +97,10 @@ void matrix_init_user(void) {
 void matrix_scan_user(void) {
 }
 
+void keyboard_post_init_user(void) {
+  annepro2LedEnable();
+}
+
 layer_state_t layer_state_set_user(layer_state_t layer) {
     return layer;
 }
