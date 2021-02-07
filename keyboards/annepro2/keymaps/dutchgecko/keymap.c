@@ -99,21 +99,34 @@ void matrix_scan_user(void) {
 
 void keyboard_post_init_user(void) {
     annepro2LedEnable();
-    annepro2LedSetProfile(4);
+    annepro2LedSetProfile(0);
 }
 
 layer_state_t layer_state_set_user(layer_state_t layer) {
+  switch(get_highest_layer(layer)) {
+    case _FN1_LAYER:
+      annepro2LedSetProfile(1);
+      break;
+    case _FN2_LAYER:
+      annepro2LedSetProfile(2);
+      break;
+    default:
+      annepro2LedSetProfile(0);
+      break;
+  }
     return layer;
 }
 
 // Turn keyboard red when caps lock is enabled
 bool led_update_user(led_t leds) {
   if (leds.caps_lock) {
-    // Set the leds to red
-    annepro2LedSetForegroundColor(0xFF, 0x00, 0x00);
+    // Set the leds to burntorange
+    annepro2LedSetForegroundColor(0xFF, 0x66, 0x00);
   } else {
-    annepro2LedResetForegroundColor();
-    annepro2LedSetProfile(4);
+    if(!layer_state_is(_FN1_LAYER) && !layer_state_is(_FN2_LAYER)) {
+        annepro2LedResetForegroundColor();
+        annepro2LedSetProfile(0);
+    }
   }
 
   return true;
