@@ -121,13 +121,29 @@ layer_state_t layer_state_set_user(layer_state_t layer) {
 bool led_update_user(led_t leds) {
   if (leds.caps_lock) {
     // Set the leds to burntorange
-    annepro2LedSetForegroundColor(0xFF, 0x66, 0x00);
-  } else {
+    const annepro2Led_t color = {
+      .p.red = 0xff,
+      .p.green = 0x66,
+      .p.blue = 0x00,
+      .p.alpha = 0xff
+    };
+    annepro2LedMaskSetMono(color);
+  }
+  else {
     if(!layer_state_is(_FN1_LAYER) && !layer_state_is(_FN2_LAYER)) {
-        annepro2LedResetForegroundColor();
-        annepro2LedSetProfile(0);
+      //annepro2LedResetForegroundColor();
+      //annepro2LedSetProfile(0);
+      const annepro2Led_t color = {
+        .p.red = 0xff,
+        .p.green = 0x66,
+        .p.blue = 0x00,
+        .p.alpha = 0x00
+      };
+      annepro2LedMaskSetMono(color);
     }
   }
 
   return true;
 }
+
+// vim: sw=2 ts=2
