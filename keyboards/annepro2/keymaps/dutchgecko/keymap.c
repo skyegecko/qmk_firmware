@@ -1,6 +1,7 @@
-#include <stdint.h>
-#include "annepro2.h"
-#include "qmk_ap2_led.h"
+//#include <stdint.h>
+//#include "annepro2.h"
+//#include "qmk_ap2_led.h"
+#include QMK_KEYBOARD_H
 
 enum anne_pro_layers {
   _BASE_LAYER,
